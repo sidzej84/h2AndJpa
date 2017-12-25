@@ -2,13 +2,12 @@ package service;
 
 import model.TransactionDetails;
 import org.springframework.stereotype.Service;
-
 import java.util.Hashtable;
 
 @Service
 public class TransactionService {
     Hashtable<String, TransactionDetails> transactions = new Hashtable<String, TransactionDetails>();
-    public TransactionService(){
+    public TransactionService() {
         TransactionDetails p = new TransactionDetails();
         p.setId("1");
         p.setCustomerFirstName("Piotr");
@@ -23,20 +22,30 @@ public class TransactionService {
 
 
     }
-    public TransactionDetails getTransaction(String id){
+
+    public TransactionDetails getTransaction(String id) {
         if (transactions.containsKey(id))
             return transactions.get(id);
         else
             return null;
     }
-    public Hashtable<String, TransactionDetails> getAll(){
+
+    public Hashtable<String, TransactionDetails> getAll() {
         return transactions;
     }
-    public NewTransaction(){
+
+    public void NewTransaction() {
         TransactionDetails p = new TransactionDetails();
         String counter = p.getId();
         transactions.put(counter, p);
 
+
+    }
+
+    public Hashtable<String, TransactionDetails> deleteTransactionById(String id) {
+
+        transactions.remove(id);
+        return null;
 
     }
 }
