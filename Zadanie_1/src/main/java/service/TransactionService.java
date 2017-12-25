@@ -51,10 +51,9 @@ public class TransactionService {
 
 
     public Hashtable<String, TransactionDetails> updateTransaction(TransactionDetails currentTransaction) {
-        int index = transactions.hashCode(currentTransaction);
-        transactions.entrySet(index, currentTransaction);
+        String index = currentTransaction.getId();
+        transactions.put(index, currentTransaction);
+        return null;
     }
 
-    public static TransactionDetails findById(String id) {
-    }
 }

@@ -40,7 +40,7 @@ public class TransactionController {
     @RequestMapping(value = "/transaction/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTransaction(@PathVariable("id") String id, @RequestBody TransactionDetails transaction) {
 
-        TransactionDetails currentTransaction = TransactionService.findById(id);
+        TransactionDetails currentTransaction = ps.getTransaction(id);
 
 
 
@@ -48,7 +48,7 @@ public class TransactionController {
         currentTransaction.setCustomerLastName(transaction.getCustomerLastName());
         currentTransaction.setCustomerBirthDate(transaction.getCustomerBirthDate());
 
-        TransactionService.updateTransaction(currentTransaction);
+        ps.updateTransaction(currentTransaction);
         return new ResponseEntity<TransactionDetails>(currentTransaction, HttpStatus.OK);
     }
 
