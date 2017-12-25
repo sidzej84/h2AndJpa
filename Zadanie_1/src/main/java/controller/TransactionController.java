@@ -40,10 +40,10 @@ public class TransactionController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTransaction(@PathVariable("id") Integer id, @RequestBody TransactionDetails transaction) {
 
-        TransactionDetails currentTransaction = ps.getTransaction(id);
-        currentTransaction.setId(id);
-        ps.updateTransaction(currentTransaction);
-        return new ResponseEntity<>(currentTransaction, HttpStatus.OK);
+
+        transaction.setId(id);
+        ps.updateTransaction(transaction);
+        return new ResponseEntity<>(transaction, HttpStatus.OK);
     }
 
 
@@ -53,7 +53,7 @@ public class TransactionController {
         ps.saveTransaction(transaction);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/transactions/{id}").buildAndExpand(transaction.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(transaction.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
