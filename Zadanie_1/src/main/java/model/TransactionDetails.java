@@ -1,7 +1,7 @@
 package model;
 
 public class TransactionDetails {
-    String id;
+    int id;
     String customerFirstName;
     String customerLastName;
     String customerBirthDate;
@@ -38,11 +38,11 @@ public class TransactionDetails {
     String vehicleSeats;
     String vehicleStandingPlaces;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

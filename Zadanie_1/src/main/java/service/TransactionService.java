@@ -6,19 +6,22 @@ import java.util.Hashtable;
 
 @Service
 public class TransactionService {
-    Hashtable<String, TransactionDetails> transactions = new Hashtable<String, TransactionDetails>();
+    Hashtable<Integer, TransactionDetails> transactions = new Hashtable<Integer, TransactionDetails>();
+    int currentId = 0;
     public TransactionService() {
         TransactionDetails p = new TransactionDetails();
-        p.setId("1");
+        p.setId(1);
         p.setCustomerFirstName("Piotr");
         p.setCustomerLastName("Kowalski");
-        transactions.put("1", p);
+        transactions.put(1, p);
+        currentId ++;
 
         p = new TransactionDetails();
-        p.setId("2");
+        p.setId(2);
         p.setCustomerFirstName("Janina");
         p.setCustomerLastName("Jakim");
-        transactions.put("2", p);
+        transactions.put(2, p);
+        currentId ++;
 
 
     }
@@ -30,19 +33,12 @@ public class TransactionService {
             return null;
     }
 
-    public Hashtable<String, TransactionDetails> getAll() {
+    public Hashtable<Integer, TransactionDetails> getAll() {
         return transactions;
     }
 
-    public void NewTransaction() {
-        TransactionDetails p = new TransactionDetails();
-        String counter = p.getId();
-        transactions.put(counter, p);
 
-
-    }
-
-    public Hashtable<String, TransactionDetails> deleteTransactionById(String id) {
+    public Hashtable<Integer, TransactionDetails> deleteTransactionById(String id) {
 
         transactions.remove(id);
         return null;
@@ -50,10 +46,18 @@ public class TransactionService {
     }
 
 
-    public Hashtable<String, TransactionDetails> updateTransaction(TransactionDetails currentTransaction) {
-        String index = currentTransaction.getId();
+    public Hashtable<Integer, TransactionDetails> updateTransaction(TransactionDetails currentTransaction) {
+        int index = currentTransaction.getId();
         transactions.put(index, currentTransaction);
         return null;
     }
 
+    public void saveTransaction(TransactionDetails transaction) {
+
+        transaction.setId(currentId);
+        transactions.put(currentId, transaction);
+        currentId ++;
+
+
+    }
 }

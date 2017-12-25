@@ -2,9 +2,11 @@ package controller;
 
 import model.TransactionDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import service.TransactionService;
 
 import java.util.Hashtable;
@@ -18,7 +20,7 @@ public class TransactionController {
     TransactionService ps;
 
     @RequestMapping("/all")
-    public Hashtable<String, TransactionDetails> getAll() {
+    public Hashtable<Integer, TransactionDetails> getAll() {
         return ps.getAll();
     }
 
@@ -39,7 +41,6 @@ public class TransactionController {
     public ResponseEntity<?> updateTransaction(@PathVariable("id") String id, @RequestBody TransactionDetails transaction) {
 
         TransactionDetails currentTransaction = ps.getTransaction(id);
-
 
         currentTransaction.setCustomerFirstName(transaction.getCustomerFirstName());
         currentTransaction.setCustomerLastName(transaction.getCustomerLastName());
@@ -77,11 +78,19 @@ public class TransactionController {
         currentTransaction.setVehicleStandingPlaces(transaction.getVehicleStandingPlaces());
 
         ps.updateTransaction(currentTransaction);
-        return new ResponseEntity<TransactionDetails>(currentTransaction, HttpStatus.OK);
+        return new ResponseEntity<>(currentTransaction, HttpStatus.OK);
     }
 
 
+    @RequestMapping(value = "/add/", method = RequestMethod.POST)
+    public ResponseEntity<?> createTransaction(@RequestBody TransactionDetails transaction, UriComponentsBuilder ucBuilder) {
 
+        ps.saveTransaction(transaction);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/transactions/{id}").buildAndExpand(transaction.getId()).toUri());
+        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+    }
 
 
 }
