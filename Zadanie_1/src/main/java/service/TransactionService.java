@@ -47,7 +47,7 @@ public class TransactionService {
 
 
     public Hashtable<Integer, TransactionDetails> updateTransaction(TransactionDetails currentTransaction) {
-        Integer index = currentTransaction.getId();
+        int index = currentTransaction.getId();
         transactions.put(index, currentTransaction);
         return null;
     }

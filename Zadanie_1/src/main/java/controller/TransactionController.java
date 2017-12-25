@@ -19,7 +19,7 @@ public class TransactionController {
     @Autowired
     TransactionService ps;
 
-    @RequestMapping("/all")
+    @RequestMapping(method = RequestMethod.GET)
     public Hashtable<Integer, TransactionDetails> getAll() {
         return ps.getAll();
     }
@@ -41,7 +41,7 @@ public class TransactionController {
     public ResponseEntity<?> updateTransaction(@PathVariable("id") Integer id, @RequestBody TransactionDetails transaction) {
 
         TransactionDetails currentTransaction = ps.getTransaction(id);
-
+        currentTransaction.setId(id);
         ps.updateTransaction(currentTransaction);
         return new ResponseEntity<>(currentTransaction, HttpStatus.OK);
     }
