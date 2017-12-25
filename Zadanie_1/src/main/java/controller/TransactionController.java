@@ -35,18 +35,46 @@ public class TransactionController {
 
     }
 
-    // ------------------- Update a User ------------------------------------------------
-
     @RequestMapping(value = "/transaction/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTransaction(@PathVariable("id") String id, @RequestBody TransactionDetails transaction) {
 
         TransactionDetails currentTransaction = ps.getTransaction(id);
 
 
-
         currentTransaction.setCustomerFirstName(transaction.getCustomerFirstName());
         currentTransaction.setCustomerLastName(transaction.getCustomerLastName());
         currentTransaction.setCustomerBirthDate(transaction.getCustomerBirthDate());
+        currentTransaction.setCustomerGender(transaction.getCustomerGender());
+        currentTransaction.setCustomerPESEL(transaction.getCustomerPESEL());
+        currentTransaction.setVehicleRegisterNumber(transaction.getVehicleRegisterNumber());
+        currentTransaction.setVehicleFirstRegistrationDate(transaction.getVehicleFirstRegistrationDate());
+        currentTransaction.setVehicleUserName(transaction.getVehicleUserName());
+        currentTransaction.setVehicleUserPESEL(transaction.getVehicleUserPESEL());
+        currentTransaction.setVehicleUserAddress(transaction.getVehicleUserAddress());
+        currentTransaction.setVehicleOwnerName(transaction.getVehicleOwnerName());
+        currentTransaction.setVehicleOwnerPESEL(transaction.getVehicleOwnerPESEL());
+        currentTransaction.setVehicleOwnerAddress(transaction.getVehicleOwnerAddress());
+        currentTransaction.setVehicleBrand(transaction.getVehicleBrand());
+        currentTransaction.setVehicleType(transaction.getVehicleType());
+        currentTransaction.setVehicleModel(transaction.getVehicleModel());
+        currentTransaction.setVehicleIdentificationNumber(transaction.getVehicleIdentificationNumber());
+        currentTransaction.setVehicleMaxTotalMass(transaction.getVehicleMaxTotalMass());
+        currentTransaction.setVehiclePermissableMass(transaction.getVehiclePermissableMass());
+        currentTransaction.setVehiclePermissableMassGroup(transaction.getVehiclePermissableMassGroup());
+        currentTransaction.setVehicleMassOwn(transaction.getVehicleMassOwn());
+        currentTransaction.setVehicleRegisterExpiryDate(transaction.getVehicleRegisterExpiryDate());
+        currentTransaction.setVehicleRegisterSetUpDate(transaction.getVehicleRegisterSetUpDate());
+        currentTransaction.setVehicleCategory(transaction.getVehicleCategory());
+        currentTransaction.setVehicleApprovalNumber(transaction.getVehicleApprovalNumber());
+        currentTransaction.setVehicleNumberOfAxles(transaction.getVehicleNumberOfAxles());
+        currentTransaction.setVehicleTruckTrailerTotalMassWithBreaks(transaction.getVehicleTruckTrailerTotalMassWithBreaks());
+        currentTransaction.setVehicleTruckTrailerTotalMassWithoutBreaks(transaction.getVehicleTruckTrailerTotalMassWithoutBreaks());
+        currentTransaction.setVehicleEngineCapacity(transaction.getVehicleEngineCapacity());
+        currentTransaction.setVehicleEngineMaxNetPower(transaction.getVehicleEngineMaxNetPower());
+        currentTransaction.setVehicleFuelType(transaction.getVehicleFuelType());
+        currentTransaction.setVehiclePowerToMass(transaction.getVehiclePowerToMass());
+        currentTransaction.setVehicleSeats(transaction.getVehicleSeats());
+        currentTransaction.setVehicleStandingPlaces(transaction.getVehicleStandingPlaces());
 
         ps.updateTransaction(currentTransaction);
         return new ResponseEntity<TransactionDetails>(currentTransaction, HttpStatus.OK);
