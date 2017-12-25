@@ -26,7 +26,7 @@ public class TransactionService {
 
     }
 
-    public TransactionDetails getTransaction(String id) {
+    public TransactionDetails getTransaction(Integer id) {
         if (transactions.containsKey(id))
             return transactions.get(id);
         else
@@ -38,7 +38,7 @@ public class TransactionService {
     }
 
 
-    public Hashtable<Integer, TransactionDetails> deleteTransactionById(String id) {
+    public Hashtable<Integer, TransactionDetails> deleteTransactionById(Integer id) {
 
         transactions.remove(id);
         return null;
@@ -47,7 +47,7 @@ public class TransactionService {
 
 
     public Hashtable<Integer, TransactionDetails> updateTransaction(TransactionDetails currentTransaction) {
-        int index = currentTransaction.getId();
+        Integer index = currentTransaction.getId();
         transactions.put(index, currentTransaction);
         return null;
     }
