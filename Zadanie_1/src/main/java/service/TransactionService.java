@@ -48,4 +48,13 @@ public class TransactionService {
         return null;
 
     }
+
+
+    public Hashtable<String, TransactionDetails> updateTransaction(TransactionDetails currentTransaction) {
+        int index = transactions.hashCode(currentTransaction);
+        transactions.entrySet(index, currentTransaction);
+    }
+
+    public static TransactionDetails findById(String id) {
+    }
 }
