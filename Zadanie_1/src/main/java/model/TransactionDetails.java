@@ -7,7 +7,6 @@ public class TransactionDetails {
     String customerBirthDate;
     String customerGender;
     String customerPESEL;
-
     String vehicleRegisterNumber;
     String vehicleFirstRegistrationDate;
     String vehicleUserName;
