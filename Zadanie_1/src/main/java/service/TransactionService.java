@@ -1,6 +1,9 @@
 package service;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import model.TransactionDetails;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.Hashtable;
 
@@ -10,17 +13,17 @@ public class TransactionService {
     int currentId = 0;
     public TransactionService() {
         TransactionDetails p = new TransactionDetails();
-        p.setId(1);
+        p.setId(currentId);
         p.setCustomerFirstName("Piotr");
         p.setCustomerLastName("Kowalski");
-        transactions.put(1, p);
+        transactions.put(currentId, p);
         currentId ++;
 
         p = new TransactionDetails();
-        p.setId(2);
+        p.setId(currentId);
         p.setCustomerFirstName("Janina");
         p.setCustomerLastName("Jakim");
-        transactions.put(2, p);
+        transactions.put(currentId, p);
         currentId ++;
 
 
