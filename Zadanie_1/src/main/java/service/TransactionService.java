@@ -2,7 +2,6 @@ package service;
 
 import model.TransactionDetails;
 import org.springframework.stereotype.Service;
-import util.OperationSuccesfull;
 import util.TransactionNotFoundException;
 
 import java.util.Hashtable;
@@ -32,7 +31,6 @@ public class TransactionService {
     public TransactionDetails getTransaction(Integer id) {
         if (transactions.containsKey(id)) {
             return transactions.get(id);
-
         }
         else {
             throw new TransactionNotFoundException();
@@ -45,10 +43,9 @@ public class TransactionService {
     }
 
 
-    public Hashtable<Integer, TransactionDetails> deleteTransactionById(Integer id) {
-        if (transactions.containsKey(id)){
+    public void deleteTransactionById(Integer id) {
+        if (transactions.containsKey(id)) {
         transactions.remove(id);
-        throw new OperationSuccesfull();
         }
         else {
             throw new TransactionNotFoundException();
@@ -57,11 +54,11 @@ public class TransactionService {
     }
 
 
-    public Hashtable<Integer, TransactionDetails> updateTransaction(TransactionDetails currentTransaction) {
-        int index = currentTransaction.getId();
+    public TransactionDetails updateTransaction(TransactionDetails currentTransaction) {
+        Integer index = currentTransaction.getId();
         if (transactions.containsKey(index)) {
             transactions.put(index, currentTransaction);
-            throw new OperationSuccesfull();
+            return transactions.get(index);
         }
         else {
             throw new TransactionNotFoundException();
@@ -73,7 +70,7 @@ public class TransactionService {
         transaction.setId(currentId);
         transactions.put(currentId, transaction);
         currentId ++;
-        throw new OperationSuccesfull();
+
 
 
     }

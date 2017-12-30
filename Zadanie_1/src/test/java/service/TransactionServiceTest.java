@@ -2,7 +2,9 @@ package service;
 
 import model.TransactionDetails;
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
+import util.TransactionNotFoundException;
 
 import static org.junit.Assert.*;
 
@@ -50,11 +52,13 @@ public class TransactionServiceTest {
         transaction.setCustomerLastName("Żeromski");
         restTemplate.postForLocation(serviceUri+"/", transaction, TransactionDetails.class);
     }
-    public void main(String args[]) {
-        getTransaction();
-        getAll();
-        deleteTransactionById();
-        updateTransaction();
-        saveTransaction();
+    @Test (expected = TransactionNotFoundException.class)
+    public void testTransactionNotFoundException() {
+        System.out.println("+++++++transactionNotFoundException TEST++++++");
+        RestTemplate restTemplate = new RestTemplate();
+        TransactionDetails transaction = new TransactionDetails();
+        transaction.setCustomerFirstName("Czesław");
+        transaction.setCustomerLastName("Niemen");
+        restTemplate.put(serviceUri+"/22", transaction);
     }
 }
