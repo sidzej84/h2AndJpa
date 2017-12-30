@@ -2,17 +2,16 @@ package service;
 
 import model.TransactionDetails;
 import org.junit.Test;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import util.TransactionNotFoundException;
+import static org.assertj.core.api.Assertions.*;
 
-import static org.junit.Assert.*;
 
 public class TransactionServiceTest {
     public static final String serviceUri = "http://localhost:8080/transactions";
 
     @Test
-    public void getTransaction() {
+    public void getTransactionShouldReturn200HttpCode() {
         System.out.println("+++++++getTransaction TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
         TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/1",TransactionDetails.class);
@@ -20,21 +19,21 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void getAll() {
+    public void getAllShouldReturn200HttpCode() {
         System.out.println("+++++++getAll TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getForObject(serviceUri+"/", TransactionDetails.class);
     }
 
     @Test
-    public void deleteTransactionById() {
+    public void deleteTransactionByIdShouldReturn200HttpCode() {
         System.out.println("+++++++deleteTransactionById TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(serviceUri+"/0");
     }
 
     @Test
-    public void updateTransaction() {
+    public void updateTransactionShouldReturn200HttpCode() {
         System.out.println("+++++++updateTransaction TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
         TransactionDetails transaction = new TransactionDetails();
@@ -44,7 +43,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void saveTransaction() {
+    public void saveTransactionShouldReturn201HttpCode() {
         System.out.println("+++++++saveTransaction TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
         TransactionDetails transaction = new TransactionDetails();
@@ -52,13 +51,11 @@ public class TransactionServiceTest {
         transaction.setCustomerLastName("Żeromski");
         restTemplate.postForLocation(serviceUri+"/", transaction, TransactionDetails.class);
     }
-    @Test (expected = TransactionNotFoundException.class)
-    public void testTransactionNotFoundException() {
+    @Test (expected = HttpClientErrorException.class)
+    public void transactionControllerShouldThrowNotFoundException() {
         System.out.println("+++++++transactionNotFoundException TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
-        TransactionDetails transaction = new TransactionDetails();
-        transaction.setCustomerFirstName("Czesław");
-        transaction.setCustomerLastName("Niemen");
-        restTemplate.put(serviceUri+"/22", transaction);
+        TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/22",TransactionDetails.class);
+        assertThat(transaction.getId()).isEqualTo(22);
     }
 }
