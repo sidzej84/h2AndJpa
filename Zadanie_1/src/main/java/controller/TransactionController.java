@@ -24,12 +24,12 @@ public class TransactionController {
     }
 
     @RequestMapping("/{id}")
-    public TransactionDetails getTransactions(@PathVariable("id") Integer id) {
+    public TransactionDetails getTransactions(@PathVariable("/{id}") Integer id) {
         return ps.getTransaction(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public TransactionDetails deleteTransaction (@PathVariable("id") Integer id) {
+    public TransactionDetails deleteTransaction (@PathVariable("{/id}") Integer id) {
         TransactionDetails transaction = ps.getTransaction(id);
         ps.deleteTransactionById(id);
         return null;
@@ -37,8 +37,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateTransaction(@PathVariable("id") Integer id, @RequestBody TransactionDetails transaction) {
-
+    public ResponseEntity<?> updateTransaction(@PathVariable("/{id}") Integer id, @RequestBody TransactionDetails transaction) {
 
         transaction.setId(id);
         ps.updateTransaction(transaction);

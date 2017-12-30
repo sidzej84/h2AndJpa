@@ -8,13 +8,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Hashtable;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -30,8 +27,6 @@ public class TransactionServiceTest {
     private TransactionService transactions;
 
     @InjectMocks
-    RestTemplate restTemplate;
-    @Autowired
     private TransactionController transactionController;
 
 
@@ -43,21 +38,23 @@ public class TransactionServiceTest {
     @Test
     public void getTransactionShouldReturn200HttpCode() {
         System.out.println("+++++++getTransaction TEST++++++");
-
-        TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/1",TransactionDetails.class);
-        System.out.println(transaction);
+        transactionController.getTransactions(1);
+    //    TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/1",TransactionDetails.class);
+    //    System.out.println(transaction);
     }
 
     @Test
     public void getAllShouldReturn200HttpCode() {
         System.out.println("+++++++getAll TEST++++++");
-        restTemplate.getForObject(serviceUri+"/", TransactionDetails.class);
+        transactionController.getAll();
+   //     restTemplate.getForObject(serviceUri+"/", TransactionDetails.class);
     }
 
     @Test
     public void deleteTransactionByIdShouldReturn200HttpCode() {
         System.out.println("+++++++deleteTransactionById TEST++++++");
-        restTemplate.delete(serviceUri+"/0");
+    //    restTemplate.delete(serviceUri+"/0");
+        transactionController.deleteTransaction(0);
     }
 
     @Test
@@ -66,7 +63,8 @@ public class TransactionServiceTest {
         TransactionDetails transaction = new TransactionDetails();
         transaction.setCustomerFirstName("Czesław");
         transaction.setCustomerLastName("Niemen");
-        restTemplate.put(serviceUri+"/1", transaction);
+        transactionController.updateTransaction(1, transaction);
+      //  restTemplate.put(serviceUri+"/1", transaction);
     }
 
     @Test
@@ -75,13 +73,14 @@ public class TransactionServiceTest {
         TransactionDetails transaction = new TransactionDetails();
         transaction.setCustomerFirstName("Jan Stefan");
         transaction.setCustomerLastName("Żeromski");
-        restTemplate.postForLocation(serviceUri+"/", transaction, TransactionDetails.class);
+     //   restTemplate.postForLocation(serviceUri+"/", transaction, TransactionDetails.class);
+     //   transactionController.updateTransaction(0, transaction, TransactionDetails.class);
     }
     @Test (expected = HttpClientErrorException.class)
     public void transactionControllerShouldThrowNotFoundException() {
         System.out.println("+++++++transactionNotFoundException TEST++++++");
 
-        TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/22",TransactionDetails.class);
-        assertThat(transaction.getId()).isEqualTo(22);
+  //      TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/22",TransactionDetails.class);
+  //      assertThat(transaction.getId()).isEqualTo(22);
     }
 }
