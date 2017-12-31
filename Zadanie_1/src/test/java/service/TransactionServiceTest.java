@@ -2,25 +2,26 @@ package service;
 
 import controller.TransactionController;
 import model.TransactionDetails;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
-
-
+import java.util.Hashtable;
 import static org.assertj.core.api.Assertions.*;
 
-
-@ContextConfiguration(locations = {"classpath:/application-context.xml"})
+@ContextConfiguration(classes = TransactionDetails.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 
-
 public class TransactionServiceTest {
+
     public static final String serviceUri = "http://localhost:8080/transactions";
 
     @Mock
@@ -46,7 +47,9 @@ public class TransactionServiceTest {
     @Test
     public void getAllShouldReturn200HttpCode() {
         System.out.println("+++++++getAll TEST++++++");
-        transactionController.getAll();
+        Hashtable<Integer,TransactionDetails> methodTest = transactionController.getAll();
+        System.out.println(methodTest);
+        assertThat(methodTest).isEqualTo(transactions);
    //     restTemplate.getForObject(serviceUri+"/", TransactionDetails.class);
     }
 
