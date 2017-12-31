@@ -1,4 +1,4 @@
-package demo;
+package app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan({"controller","service"})
 public class TransactionApp {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(TransactionApp.class, args);
     }
 }

@@ -20,8 +20,8 @@ public class TransactionDetails {
     String vehicleModel;
     String vehicleIdentificationNumber;
     String vehicleMaxTotalMass;
-    String vehiclePermissableMass;
-    String vehiclePermissableMassGroup;
+    String vehiclePermissibleMass;
+    String vehiclePermissibleMassGroup;
     String vehicleMassOwn;
     String vehicleRegisterExpiryDate;
     String vehicleRegisterSetUpDate;
@@ -189,20 +189,20 @@ public class TransactionDetails {
         this.vehicleMaxTotalMass = vehicleMaxTotalMass;
     }
 
-    public String getVehiclePermissableMass() {
-        return vehiclePermissableMass;
+    public String getVehiclePermissibleMass() {
+        return vehiclePermissibleMass;
     }
 
-    public void setVehiclePermissableMass(String vehiclePermissableMass) {
-        this.vehiclePermissableMass = vehiclePermissableMass;
+    public void setVehiclePermissibleMass(String vehiclePermissibleMass) {
+        this.vehiclePermissibleMass = vehiclePermissibleMass;
     }
 
-    public String getVehiclePermissableMassGroup() {
-        return vehiclePermissableMassGroup;
+    public String getVehiclePermissibleMassGroup() {
+        return vehiclePermissibleMassGroup;
     }
 
-    public void setVehiclePermissableMassGroup(String vehiclePermissableMassGroup) {
-        this.vehiclePermissableMassGroup = vehiclePermissableMassGroup;
+    public void setVehiclePermissibleMassGroup(String vehiclePermissibleMassGroup) {
+        this.vehiclePermissibleMassGroup = vehiclePermissibleMassGroup;
     }
 
     public String getVehicleMassOwn() {

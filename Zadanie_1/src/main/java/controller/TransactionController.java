@@ -29,28 +29,24 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public TransactionDetails deleteTransaction (@PathVariable("id") Integer id) {
+    public TransactionDetails deleteTransaction(@PathVariable("id") Integer id) {
         TransactionDetails transaction = ps.getTransaction(id);
         ps.deleteTransactionById(id);
         return null;
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTransaction(@PathVariable("id") Integer id, @RequestBody TransactionDetails transaction) {
-
 
         transaction.setId(id);
         ps.updateTransaction(transaction);
         return new ResponseEntity<>(transaction, HttpStatus.OK);
     }
 
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createTransaction(@RequestBody TransactionDetails transaction, UriComponentsBuilder ucBuilder) {
 
         ps.saveTransaction(transaction);
-
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(transaction.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
