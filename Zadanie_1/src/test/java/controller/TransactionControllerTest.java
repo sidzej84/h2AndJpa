@@ -1,4 +1,4 @@
-package service;
+package controller;
 
 import controller.TransactionController;
 import model.TransactionDetails;
@@ -8,24 +8,28 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
+import service.TransactionService;
+
 import java.util.Hashtable;
 import static org.assertj.core.api.Assertions.*;
 
-@ContextConfiguration(classes = TransactionDetails.class)
-@RunWith(SpringJUnit4ClassRunner.class)
 
-public class TransactionServiceTest {
+public class TransactionControllerTest {
 
     public static final String serviceUri = "http://localhost:8080/transactions";
 
     @Mock
     private TransactionService transactions;
+
+    @Mock
+    private TransactionDetails transaction;
 
     @InjectMocks
     private TransactionController transactionController;
@@ -40,6 +44,7 @@ public class TransactionServiceTest {
     public void getTransactionShouldReturn200HttpCode() {
         System.out.println("+++++++getTransaction TEST++++++");
         transactionController.getTransactions(1);
+        System.out.println(transactionController.getTransactions(1));
     //    TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/1",TransactionDetails.class);
     //    System.out.println(transaction);
     }
@@ -47,8 +52,13 @@ public class TransactionServiceTest {
     @Test
     public void getAllShouldReturn200HttpCode() {
         System.out.println("+++++++getAll TEST++++++");
-        Hashtable<Integer,TransactionDetails> methodTest = transactionController.getAll();
+
+        Hashtable<Integer, TransactionDetails> trana;
+        Mockito.when(transactions.getAll()).thenReturn(transaction);
+
+        Hashtable<Integer,TransactionDetails> methodTest = transactions.getAll();
         System.out.println(methodTest);
+
         assertThat(methodTest).isEqualTo(transactions);
    //     restTemplate.getForObject(serviceUri+"/", TransactionDetails.class);
     }
@@ -82,6 +92,7 @@ public class TransactionServiceTest {
     @Test (expected = HttpClientErrorException.class)
     public void transactionControllerShouldThrowNotFoundException() {
         System.out.println("+++++++transactionNotFoundException TEST++++++");
+        transactionController.deleteTransaction(5);
 
   //      TransactionDetails transaction = restTemplate.getForObject(serviceUri+"/22",TransactionDetails.class);
   //      assertThat(transaction.getId()).isEqualTo(22);
