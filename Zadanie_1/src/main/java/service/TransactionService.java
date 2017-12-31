@@ -31,6 +31,7 @@ public class TransactionService {
     public TransactionDetails getTransaction(Integer id) {
         if (transactions.containsKey(id)) {
             return transactions.get(id);
+
         }
         else {
             throw new TransactionNotFoundException();
@@ -44,7 +45,7 @@ public class TransactionService {
 
 
     public void deleteTransactionById(Integer id) {
-        if (transactions.containsKey(id)) {
+        if (transactions.containsKey(id)){
         transactions.remove(id);
         }
         else {
@@ -54,11 +55,10 @@ public class TransactionService {
     }
 
 
-    public TransactionDetails updateTransaction(TransactionDetails currentTransaction) {
-        Integer index = currentTransaction.getId();
+    public void updateTransaction(TransactionDetails currentTransaction) {
+        int index = currentTransaction.getId();
         if (transactions.containsKey(index)) {
             transactions.put(index, currentTransaction);
-            return transactions.get(index);
         }
         else {
             throw new TransactionNotFoundException();
@@ -70,7 +70,6 @@ public class TransactionService {
         transaction.setId(currentId);
         transactions.put(currentId, transaction);
         currentId ++;
-
 
 
     }

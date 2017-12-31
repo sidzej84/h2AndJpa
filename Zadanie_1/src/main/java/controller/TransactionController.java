@@ -39,6 +39,7 @@ public class TransactionController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateTransaction(@PathVariable("id") Integer id, @RequestBody TransactionDetails transaction) {
 
+
         transaction.setId(id);
         ps.updateTransaction(transaction);
         return new ResponseEntity<>(transaction, HttpStatus.OK);
