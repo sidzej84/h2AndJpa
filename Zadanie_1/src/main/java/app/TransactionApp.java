@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan({"controller","service"})
+@ComponentScan({"controller","service","dao","repository"})
+
+
+
 public class TransactionApp {
     public static void main(String[] args) {
         SpringApplication.run(TransactionApp.class, args);

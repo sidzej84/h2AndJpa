@@ -1,6 +1,6 @@
 package service;
 
-import model.TransactionDetails;
+import model.Customer;
 import org.junit.Test;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +13,7 @@ public class TransactionServiceTest {
     public void getTransactionShouldReturn201HttpCode() {
         System.out.println("+++++++getTransaction TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
-        TransactionDetails transaction = restTemplate.getForObject(serviceUri + "/1", TransactionDetails.class);
+        Customer transaction = restTemplate.getForObject(serviceUri + "/1", Customer.class);
         System.out.println(transaction);
     }
 
@@ -21,7 +21,7 @@ public class TransactionServiceTest {
     public void getAllShouldReturn200HttpCode() {
         System.out.println("+++++++getAll TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject(serviceUri + "/", TransactionDetails.class);
+        restTemplate.getForObject(serviceUri + "/", Customer.class);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TransactionServiceTest {
     public void updateTransactionShouldReturn200HttpCode() {
         System.out.println("+++++++updateTransaction TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
-        TransactionDetails transaction = new TransactionDetails();
+        Customer transaction = new Customer();
         transaction.setCustomerFirstName("Mark");
         transaction.setCustomerLastName("Twain");
         restTemplate.put(serviceUri + "/1", transaction);
@@ -45,10 +45,10 @@ public class TransactionServiceTest {
     public void addTransactionShouldReturn200HttpCode() {
         System.out.println("+++++++saveTransaction TEST++++++");
         RestTemplate restTemplate = new RestTemplate();
-        TransactionDetails transaction = new TransactionDetails();
+        Customer transaction = new Customer();
         transaction.setCustomerFirstName("Stephen");
         transaction.setCustomerLastName("Queen");
-        restTemplate.postForLocation(serviceUri + "/", transaction, TransactionDetails.class);
+        restTemplate.postForLocation(serviceUri + "/", transaction, Customer.class);
     }
 
     @Test(expected = HttpClientErrorException.class)
