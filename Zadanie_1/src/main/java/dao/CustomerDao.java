@@ -1,9 +1,10 @@
 package dao;
 
 import model.Customer;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-@Service
+@Repository
 public class CustomerDao {
     public Customer update(Customer customer) {
         return null;
