@@ -5,6 +5,8 @@ import model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 class VehicleService implements VehicleServiceInterface {
     private VehicleDao vehicleDao;
@@ -29,8 +31,8 @@ class VehicleService implements VehicleServiceInterface {
     }
 
     @Override
-    public Vehicle getAll() {
-        return null;
+    public List<Vehicle> getAll() {
+        return vehicleDao.getAll();
     }
 
     @Override

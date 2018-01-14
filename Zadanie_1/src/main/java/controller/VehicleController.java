@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import service.VehicleServiceInterface;
 
+import java.util.List;
+
 
 @RestController
 @EnableAutoConfiguration
@@ -20,7 +22,7 @@ public class VehicleController {
     VehicleServiceInterface vehicleServiceInterface;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Vehicle getAll() {
+    public List<Vehicle> getAll() {
         return vehicleServiceInterface.getAll();
     }
 
